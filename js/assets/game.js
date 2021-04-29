@@ -7,6 +7,7 @@ class Game {
         this.ctx = canvas.getContext("2d");
 
         this.background = new Background(this.ctx);
+        this.plane = new Plane (this.ctx);
     }
 
     start() {
@@ -28,12 +29,12 @@ class Game {
     }
 
     move() {
-        console.log("entra move");
         this.background.move();
     }
 
     draw() {
         this.background.draw();
+        this.plane.draw();
     }
 
 

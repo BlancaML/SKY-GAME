@@ -9,6 +9,14 @@ window.addEventListener('load', () => {
 
     };
 
+    document.addEventListener('keydown', e => {
+        game.onKeyEvent(e)
+    });
+
+    document.addEventListener('keyup', e => {
+        game.onKeyEvent(e)
+    });
+
 });
    
 
