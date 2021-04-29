@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    dis
+    justify-content: center;
+    padding: 0;
+    text-align: center;
+    background-color:rgb(9, 215, 230);
+
+    
+  }
+  #canvas {
+    margin-top: 100px;
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(41, 93, 109);;
+  }
+
+  button {
+    font-size: 30px;
+    background-color:rgb(41, 93, 109);
+    color: #fff;
+    padding: 20px 40px;
+    border: 0;
+    box-shadow: 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+  }
