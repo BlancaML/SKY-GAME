@@ -4,16 +4,17 @@
 
 body {
     display: flex;
-    dis
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     padding: 0;
     text-align: center;
     background-color:rgb(9, 215, 230);
+    
 
     
   }
   #canvas {
-    margin-top: 100px;
     border: 1px;
     border-style: solid;
     border-color: rgb(41, 93, 109);;
