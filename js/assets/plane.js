@@ -1,7 +1,7 @@
 class Plane {
     constructor (ctx) {
         this.ctx = ctx;
-        this.tick = 0;
+        
 
         this.x = 100;
         this.y = 10;
@@ -18,22 +18,25 @@ class Plane {
         this.g = 0.1;
 
         this.img = new Image()
+        this.tick = 0;
         this.img.src = './images/Plane/plane.png';
         this.img.frames = 4;
         this.img.frameIndex = 0;
         this.img.framesY= 3;
-        this.img.frameIndexY= 2;
+        this.img.frameIndexY= 0;
+        this.img.frameIndexX= 0;
+        this.img.framesX= 2;
 
-        // this.weapon = new this.weapon(this) //
+        this.weapon = new Weapon(this) 
         
     }
 
     draw() {
     
-        //this.animate()//
+        this.animate()
         this.ctx.drawImage(
         this.img,
-        this.img.frameIndex * this.img.width / this.img.frames,
+        this.img.frameIndexX * this.img.width / this.img.framesX,
         this.img.frameIndexY * this.img.height / this.img.framesY,
         this.img.width / this.img.frames,
         this.img.height / this.img.framesY,
@@ -44,14 +47,32 @@ class Plane {
         this.h
         )
 
-        // this.weapon.draw() //
+        this.weapon.draw() 
     }
 
-   /* isFloor() {
+    animate() {
+        if (this.ay !== 0) {
+            this.img.framesX++;
+            if (this.img.frameIndexX >= this.img.framesX) {
+                this.img.framesX = 0;
+            }
+        }
+    }
+
+   isFloor() {
+        this.img.frames = 4;
+        this.img.framesIndex = 0;
+        this.img.framesY = 3;
+        this.img.framesIndexY = 2;
         return this.y + this.h >= this.ctx.canvas.height;
+        
     }
 
     isTop() {
+        this.img.frames = 4;
+        this.img.framesIndex = 0;
+        this.img.framesY = 3;
+        this.img.framesIndexY = 2;
         return this.y < 0;
     }
 
@@ -99,14 +120,7 @@ class Plane {
         }
     }
 
-    animate() {
-        if (this.ay !== 0) {
-            this.img.frameIndex++
-            if (this.img.frameIndex >= this.img.frames) {
-                this.img.frameIndex = 0;
-            }
-        }
-    }*/
+    
 
 
 }
