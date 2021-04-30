@@ -21,8 +21,8 @@ body {
   }
 
   button {
-    font-size: 30px;
-    background-color:rgb(41, 93, 109);
+    font-size: 20px;
+    background: linear-gradient(#6F92B0, #457298);
     color: #fff;
     padding: 20px 40px;
     border: 0;

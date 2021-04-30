@@ -10,7 +10,10 @@ class Game {
         this.background = new Background(this.ctx);
         this.plane = new Plane (this.ctx);
         this.score = new Score(this.ctx);
-
+        this.enemies = [
+            new Enemy (this.ctx)
+        ]; 
+        this.audio = new Audio ('./audios/gameover.wav');
     }
 
     start() {
@@ -33,13 +36,30 @@ class Game {
         this.plane.onKeyEvent(event);
     }
 
+    addEnemy() {
+        const newEnemy = new Enemy(this.ctx)
+        this.enemies.push(newEnemy)
+    }
+
+
     clear() {
         this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
+
+    clearEnemies() {
+        this.enemies = this.enemies.filter((enem) => {
+            if (enem.isVisible()) {
+                return true
+            } else {
+                this.updateScore()
+            }
+        });
     }
 
     move() {
         this.background.move();
         this.plane.move();
+        this.enemies.forEach(enem => enem.draw());
     }
 
     draw() {
@@ -47,7 +67,10 @@ class Game {
         this.background.draw();
         this.plane.draw();
         this.score.draw();
+        this.enemies.forEach(enem => enem.draw());
     }
+
+    
 
     checkCollisions() {
         const crashFloor = this.plane.isFloor();
@@ -60,7 +83,10 @@ class Game {
 
     gameOver() {
         clearInterval(this.intervalId);
-       
+
+        
+        this.audio.play()
+        
         this.ctx.font = "70px Arial";
         this.ctx.textAlign = "center";
         this.ctx.strokeStyle = "red";
