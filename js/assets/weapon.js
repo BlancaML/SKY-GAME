@@ -15,7 +15,7 @@ class Weapon {
     }
 
     clearBullets() {
-        this.bullets = this.bullets.filter(b => b.isVisble());
+        this.bullets = this.bullets.filter(b => b.isVisible());
     }
 
     draw() {

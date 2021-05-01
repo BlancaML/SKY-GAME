@@ -2,12 +2,8 @@ class Plane {
     constructor (ctx) {
         this.ctx = ctx;
         
-
         this.x = 100;
         this.y = 10;
-
-        this.w = 150;
-        this.h = 90;
 
         this.x = 0;
         this.y = 0;
@@ -20,16 +16,36 @@ class Plane {
         this.img = new Image()
         this.img.tick = 0;
         this.img.src = './images/Plane/plane.png';
-        this.img.frames = 2;
-        this.img.totalFrames = 4;
-        this.img.frameIndex = 0;
-        //this.img.framesY= 3;//
-        //this.img.frameIndexY= 0;//
-        //this.img.frameIndexX= 0;//
-        //this.img.framesX= 2;//
+        this.img.onload = () => {
 
-        this.weapon = new Weapon(this) 
+            this.img.frames = 4;
+            this.img.horizontalFrames = 4;
+            this.img.horizontalFrameIndex = 0;
+
+            this.img.verticalFrameIndex = 0;
+            this.img.verticalFrames = 3;
+
+            this.img.frameWidth = Math.floor(this.img.width / this.img.horizontalFrames);
+            this.img.frameHeight = Math.floor(this.img.height / this.img.verticalFrames);
+
+            this.img.width = this.img.frameWidth;
+            this.img.height = this.img.frameHeight;
+
+            this.w = this.img.width / 4;
+            this.h = this.img.height / 4;
+
+        };
         
+        this.movements = {
+            up: false,
+            right: false,
+            left: false,
+            isShooting: false,
+        }
+
+        ///this.weapon = new Weapon(this) //
+        
+
     }
 
     draw() {
@@ -44,8 +60,26 @@ class Plane {
         console.log('entro')
             this.ctx.drawImage(
                 this.img,
+                this.img.frameWidth * this.img.horizontalFrameIndex,
+                this.img.frameHeight * this.img.verticalFrameIndex,
+                this.img.frameWidth,
+                this.img.frameHeight,
+
+                this.x,
+                this.y,
+                this.w,
+                this.h
+
+
+
+                
+
+            );
+
+             /*this.ctx.drawImage(
+                this.img,
                 this.img.frameIndex * this.img.width / this.img.totalFrames,
-                0,
+                this.img.height / 3,
                 this.img.width / 4,
                 this.img.height / 3,
           
@@ -53,26 +87,42 @@ class Plane {
                 this.y,
                 this.w,
                 this.h
-              );
+              );*/
           
 
-        this.weapon.draw() 
+        //this.weapon.draw() //
     }
 
     animate() {
-        //if (this.ax !== 0) // 
+        if (this.movements.isShooting) {
+            this.animateShooting();
+        } else {
+            this.animateFlying();
+        }
         
-        console.log(this.img.frameIndex)
-            this.img.frameIndex++;
-            if (this.img.frameIndex >=this.img.frames) {
-                console.log(this.img.frameIndex)
-                this.img.frameIndex = 0;
-            }
-        
+    };
+
+
+    animateFlying(){
+        this.img.horizontalFrameIndex++;
+        this.img.verticalFrameIndex = 0;
+        if (this.img.horizontalFrameIndex >= 2){
+            this.img.horizontalFrameIndex = 0;
+        }
+    }
+
+    animateShooting(){
+        this.img.horizontalFrameIndex++;
+        this.img.verticalFrameIndex = 1;
+        if (this.img.horizontalFrameIndex >= 4) {
+            this.img.horizontalFrameIndex = 0;
+        }
+
+
     }
 
    isFloor() {
-       
+        
         return this.y + this.h >= this.ctx.canvas.height;
         
     }
@@ -83,47 +133,55 @@ class Plane {
     }
 
     move() {
+        console.log(this.movements)
+        if (this.movements.up) {
+            this.ay = -0.2;
+        } else {
+            this.ay = 0;
+        }
+
+        if (this.movements.right) {
+            this.ax = 0.2;
+        } else if  (this.movements.left) {
+            this.ax = -0.2;
+        } else {
+            this.ax = 0;
+        }
+
+
+
+
         this.vy += this.ay;
         this.vy += this.g;
         this.vx += this.ax;
-
+    
         this.y += this.vy;
         this.x += this.vx;
 
-        this.weapon.move()
+        //this.weapon.move() //
     }
 
     onKeyEvent(event) {
-        if (event.type === "keydown") {
-            switch (event.keyCode) {
-                case UP:
-                    this.ay = -0.2;
-                    break;
-                case RIGHT: 
-                    this.ax = 0.2;
-                    break;
-                case LEFT:
-                    this.ax = -0.2;
-                    break;
-                case SPACE:
-                    this.weapon.shoot();
-                    break;
-                  
-            }
-        
-        } else {
-            switch (event.keyCode) {
-                case UP:
-                    this.ay = 0;
-                    break;
-                case RIGHT: 
-                    this.ax = 0;
-                    break;
-                case LEFT:
-                    this.ax = 0;
-                    break;
-            }
+        const isPressed = event.type === "keydown";
+        switch (event.keyCode) {
+            case UP:
+                this.movements.up = isPressed;
+                break;
+            case RIGHT: 
+                this.movements.right = isPressed;
+                console.log( "right?")
+                break;
+            case LEFT:
+                this.movements.left = isPressed;
+                console.log( "right?")
+                break;
+            case SPACE:
+                this.movements.isShooting = isPressed;
+                //this.weapon.shoot();//
+                break;
+              
         }
+    
     }
 
     
