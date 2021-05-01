@@ -7,8 +7,8 @@ class Weapon {
     shoot() {
         const bullet = new Bullet(
             this.shooter.ctx,
-            // this.shooter.x + this.shooter.w * 0.8, //
-            // this.shooter.y + this.shooter.h * 0.9 //
+            this.shooter.x + this.shooter.w * 0.8, 
+            this.shooter.y + this.shooter.h * 0.9 
         )
 
         this.bullets.push(bullet)

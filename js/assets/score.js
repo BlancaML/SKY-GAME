@@ -15,8 +15,7 @@ class Score {
 
     draw() {
         this.img.tick++;
-        //console.log(this.img, "heart?"); //
-        if(this.img.tick >= 10) {
+        if(this.img.tick >= 9) {
             this.img.tick = 0;
             this.animate();
         }

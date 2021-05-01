@@ -46,7 +46,7 @@ class Enemy {
             this.y,
             this.w,
             this.h,
-            console.log(this.ctx.drawImage, "where are the enemies?")
+        
             )
     }
 
