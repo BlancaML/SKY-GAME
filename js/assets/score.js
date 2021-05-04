@@ -7,9 +7,27 @@ class Score {
 
         this.img = new Image()
         this.img.src = './images/bonus.png';
+
         this.img.tick = 0;
-        this.img.frames = 9;
-        this.img.frameIndex = 0;
+
+        this.img.onload = () => {
+
+            this.img.frames = 9;
+            this.img.horizontalFrameIndex = 0;
+
+            this.img.verticalFrameIndex = 0;
+            this.img.verticalFrames = 1;
+
+            this.img.frameWidth = Math.floor(this.img.width / this.img.horizontalFrames);
+            this.img.frameHeight = Math.floor(this.img.height / this.img.verticalFrames);
+
+            this.img.width = this.img.frameWidth;
+            this.img.height = this.img.frameHeight;
+
+            this.w = this.img.width / 9;
+            this.h = this.img.height / 9;
+        }
+        
 
     }
 

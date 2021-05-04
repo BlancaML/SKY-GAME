@@ -1,14 +1,13 @@
 class Bullet {
     constructor(ctx) {
         this.ctx = ctx;
-        this.x = 100;
-        this.y = 0;
-        this.vx = 15;
+        this.x = 10;
+        this.y = 50;
+        this.vx = 2;
        
-        
-
+    
         this.img = new Image()
-        this.tick = 0;
+        this.img.tick = 0;
         this.img.frames = 6;
         this.img.frameIndex = 0;
         this.img.src = './images/Bullet/plane_bullets.png';
@@ -17,7 +16,7 @@ class Bullet {
     
     draw() {
         
-        this.animate();
+        this.animate(); 
 
         this.ctx.drawImage(
             this.img,
@@ -31,6 +30,7 @@ class Bullet {
             this.w,
             this.h
           );
+          console.log(this.ctx.drawImage)
     }
     
     move() {

@@ -12,6 +12,8 @@ class Plane {
         this.ay = 0;
         this.ax = 0;
         this.g = 0.1;
+        this.isDead = false;
+
 
         this.img = new Image()
         this.img.tick = 0;
@@ -44,8 +46,17 @@ class Plane {
         }
 
         ///this.weapon = new Weapon(this) //
-        
+        this.fireballs = [];
 
+    }
+
+    shoot() {
+        console.log("shooting?")
+        const fireball = new Bullet(this.ctx);
+        if (this.movements.isShooting) {
+            this.fireballs.push(fireball);
+        }
+        
     }
 
     draw() {
@@ -57,7 +68,6 @@ class Plane {
             this.animate()
         }
         //this.ctx.drawImage( img, sx, sy, sw, sh, dx, dy, dw, dh); //
-        console.log('entro')
             this.ctx.drawImage(
                 this.img,
                 this.img.frameWidth * this.img.horizontalFrameIndex,
@@ -70,38 +80,23 @@ class Plane {
                 this.w,
                 this.h
 
-
-
-                
-
             );
 
-             /*this.ctx.drawImage(
-                this.img,
-                this.img.frameIndex * this.img.width / this.img.totalFrames,
-                this.img.height / 3,
-                this.img.width / 4,
-                this.img.height / 3,
-          
-                this.x,
-                this.y,
-                this.w,
-                this.h
-              );*/
-          
-
-        //this.weapon.draw() //
+            this.fireballs.forEach(f => f.draw());
+        
     }
 
     animate() {
-        if (this.movements.isShooting) {
+        if (!this.movements.isShooting) {
+            this.animateFlying();
+        } else if (this.movements.isShooting) {
             this.animateShooting();
         } else {
-            this.animateFlying();
+            this.animateDead();
         }
-        
-    };
-
+      
+    }
+               
 
     animateFlying(){
         this.img.horizontalFrameIndex++;
@@ -117,9 +112,14 @@ class Plane {
         if (this.img.horizontalFrameIndex >= 4) {
             this.img.horizontalFrameIndex = 0;
         }
-
-
     }
+
+
+    animateDead() {
+        this.img.horizontalFrameIndex= 0;
+        this.img.verticalFrameIndex = 2;
+        }
+        
 
    isFloor() {
         
@@ -128,12 +128,11 @@ class Plane {
     }
 
     isTop() {
-       
+        
         return this.y < 0;
     }
 
     move() {
-        console.log(this.movements)
         if (this.movements.up) {
             this.ay = -0.2;
         } else {
@@ -148,9 +147,6 @@ class Plane {
             this.ax = 0;
         }
 
-
-
-
         this.vy += this.ay;
         this.vy += this.g;
         this.vx += this.ax;
@@ -158,7 +154,7 @@ class Plane {
         this.y += this.vy;
         this.x += this.vx;
 
-        //this.weapon.move() //
+       
     }
 
     onKeyEvent(event) {
@@ -169,15 +165,13 @@ class Plane {
                 break;
             case RIGHT: 
                 this.movements.right = isPressed;
-                console.log( "right?")
                 break;
             case LEFT:
                 this.movements.left = isPressed;
-                console.log( "right?")
                 break;
             case SPACE:
                 this.movements.isShooting = isPressed;
-                //this.weapon.shoot();//
+                this.shoot();
                 break;
               
         }

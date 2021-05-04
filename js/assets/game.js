@@ -10,20 +10,26 @@ class Game {
         this.background = new Background(this.ctx);
         this.plane = new Plane (this.ctx);
         this.score = new Score(this.ctx);
-        this.enemies = [
-            new Enemy (this.ctx)
+        
+        this.blacks = [
+            new Black (this.ctx)
         ]; 
         this.audio = new Audio ('./audios/gameover.wav');
     }
 
     start() {
-        console.log("entra metodo");
         this.intervalId = setInterval(() => {
+            this.tick++;
             this.clear();
             this.move();
             this.draw();
             this.checkCollisions();
             this.updateScore();
+
+            if (this.tick === 100) {
+                this.tick = 0;
+                this.addEnemy();
+            }
 
         },1000 / 60);
     }
@@ -37,8 +43,8 @@ class Game {
     }
 
     addEnemy() {
-        const newEnemy = new Enemy(this.ctx)
-        this.enemies.push(newEnemy)
+        const newBlack = new Black(this.ctx)
+        this.blacks.push(newBlack)
     }
 
 
@@ -47,7 +53,7 @@ class Game {
     }
 
     clearEnemies() {
-        this.enemies = this.enemies.filter((enem) => {
+        this.blacks = this.blacks.filter((enem) => {
             if (enem.isVisible()) {
                 return true
             } else {
@@ -59,7 +65,12 @@ class Game {
     move() {
         this.background.move();
         this.plane.move();
-        this.enemies.forEach(enem => enem.draw());
+        
+
+        this.blacks.forEach(enem => enem.move());
+        
+
+       
     }
 
     draw() {
@@ -67,7 +78,11 @@ class Game {
         this.background.draw();
         this.plane.draw();
         this.score.draw();
-        this.enemies.forEach(enem => enem.draw());
+        
+
+        this.blacks.forEach(enem => enem.draw());
+
+
     }
 
     
@@ -82,14 +97,17 @@ class Game {
     }
 
     gameOver() {
-        clearInterval(this.intervalId);
-
+        
+        clearInterval(this.intervalId); 
         
         this.audio.play()
         
         this.ctx.font = "70px Arial";
         this.ctx.textAlign = "center";
         this.ctx.strokeStyle = "red";
+
+        this.plane.animateDead();
+
         this.ctx.strokeText(
         "GAME OVER",
         this.ctx.canvas.width / 2,

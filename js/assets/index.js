@@ -5,7 +5,9 @@ window.addEventListener('load', () => {
 
     document.getElementById("start-button").onclick = () => {
         game.start();
-        console.log('start');
+        
+        document.getElementById("start-button").remove();
+        
 
     };
 
