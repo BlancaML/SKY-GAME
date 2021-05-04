@@ -47,7 +47,7 @@ class Score {
             this.y,
             this.w,
             this.h
-        )
+        );
 
 
         this.ctx.font = "30px Arial";

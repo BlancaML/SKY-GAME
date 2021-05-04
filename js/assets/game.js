@@ -26,7 +26,7 @@ class Game {
             this.checkCollisions();
             this.updateScore();
 
-            if (this.tick === 100) {
+            if (this.tick === 300) {
                 this.tick = 0;
                 this.addEnemy();
             }
