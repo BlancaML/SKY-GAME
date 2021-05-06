@@ -11,10 +11,16 @@ class Game {
         this.plane = new Plane (this.ctx);
         this.score = new Score(this.ctx);
         
+        
         this.blacks = [
             new Black (this.ctx)
         ]; 
+
+        this.reds = [
+            new Red (this.ctx)
+        ]; 
         this.audio = new Audio ('./audios/gameover.wav');
+        this.finish = new Finish(this.ctx);
     }
 
     start() {
@@ -43,8 +49,11 @@ class Game {
     }
 
     addEnemy() {
-        const newBlack = new Black(this.ctx)
+        const newBlack = new Black (this.ctx)
         this.blacks.push(newBlack)
+
+        const newRed = new Red (this.ctx)
+        this.reds.push(newRed)
     }
 
 
@@ -55,11 +64,19 @@ class Game {
     clearEnemies() {
         this.blacks = this.blacks.filter((enem) => {
             if (enem.isVisible()) {
-                return true
+                return true;
             } else {
-                this.updateScore()
+                this.updateScore();
             }
-        });
+        })
+
+        this.reds = this.reds.filter((enem) => {
+            if (enem.isVisible()) {
+                return true;
+            } else {
+                this.updateScore();
+            }
+        })
     }
 
     move() {
@@ -68,6 +85,7 @@ class Game {
         
 
         this.blacks.forEach(enem => enem.move());
+        this.reds.forEach(enem => enem.move());
         
 
        
@@ -78,41 +96,64 @@ class Game {
         this.background.draw();
         this.plane.draw();
         this.score.draw();
-        
+
+    
 
         this.blacks.forEach(enem => enem.draw());
-
+        this.reds.forEach(enem => enem.draw());
 
     }
 
     
 
     checkCollisions() {
+
+        const collisionBlacks = this.blacks.some( enem => {
+            const colX = (
+                this.plane.x + this.plane.w >= enem.x &&
+                this.plane.x <= enem.x + enem.w
+            )
+
+            const colY = (
+                this.plane.y + this.plane.h >= enem.y &&
+                this.plane.y <= enem.y + enem.h
+            )
+
+            return colX && colY;
+        })
+
+        const collisionReds = this.reds.some( enem => {
+            const colX = (
+                this.plane.x + this.plane.w >= enem.x &&
+                this.plane.x <= enem.x + enem.w
+            )
+
+            const colY = (
+                this.plane.y + this.plane.h >= enem.y &&
+                this.plane.y <= enem.y + enem.h
+            )
+
+            return colX && colY;
+        })
+
         const crashFloor = this.plane.isFloor();
         const crashTop = this.plane.isTop();
 
-        if (crashFloor || crashTop) {
+        if (collisionBlacks || collisionReds || crashFloor || crashTop) {
             this.gameOver();
         }
     }
 
     gameOver() {
-        
+        this.finish.draw();
+        // this.finish.animate(); //
+
+        this.plane.animateDead();
         clearInterval(this.intervalId); 
         
         this.audio.play()
         
-        this.ctx.font = "70px Arial";
-        this.ctx.textAlign = "center";
-        this.ctx.strokeStyle = "red";
-
-        this.plane.animateDead();
-
-        this.ctx.strokeText(
-        "GAME OVER",
-        this.ctx.canvas.width / 2,
-        this.ctx.canvas.height / 2
-    );
+        
         
     }
 

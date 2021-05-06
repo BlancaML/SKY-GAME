@@ -1,21 +1,24 @@
-class Score {
+
+class Red {
     constructor(ctx) {
      
+
       this.ctx = ctx;
       
-      this.x = 30;
-      this.y = 20;
-      this.value = 0;
+      this.x = this.ctx.canvas.width - 10;
 
-      this.w = 50;
-      this.h = 35;
-      // this.vx = 0; //
+      this.dist = Math.random() * this.ctx.canvas.height + 50;
+      this.y = Math.random() > 0.8 ? 0.1 - this.dist : this.dist;
+
+      this.w = 30;
+      this.h = 20;
+      this.vx = -3;
 
       this.img = new Image();
       this.img.tick = 0;
-      this.img.frames = 8;
+      this.img.frames = 14;
       this.img.frameIndex = 0;
-      this.img.src = './images/bonus.png';
+      this.img.src = './images/Enemies/reds.png';
 
       
     }
@@ -23,7 +26,7 @@ class Score {
     draw() {
       this.img.tick++;
 
-      if (this.img.tick >= 5) {
+      if (this.img.tick >= 1) {
         this.img.tick = 0;
         this.animate();
       } 
@@ -34,35 +37,26 @@ class Score {
         this.img,
         this.img.frameIndex * this.img.width / this.img.frames,
         0,
-        this.img.width / 8,
+        this.img.width / 14,
         this.img.height,
         this.x,
         this.y,
         this.w,
         this.h
       );
-
-        this.ctx.font = "bold 30px Verdana";
-        /*var gradient = this.ctx.createLinearGradient(this.x, this.y, this.w, this.h);
-        gradient.addColorStop("0.8"," magenta");
-        gradient.addColorStop("0.5", "black");
-        gradient.addColorStop("1.0", "red");*/
-        
-        this.ctx.fillStyle = "#900c3f";
-        this.ctx.fillText(` ${this.value}`, this.x + 45 , this.y + 30);
     }
   
-    /*move() {
+    move() {
       this.x += this.vx;
       
-    }*/
+    }
   
-    /*isVisible() {
+    isVisible() {
       return (
         this.y < this.ctx.canvas.height &&
         this.y > 0 - this.h
       );
-    }*/
+    }
 
     animate() {
         this.img.frameIndex++;
@@ -72,5 +66,6 @@ class Score {
       }
     
   }
+
 
 

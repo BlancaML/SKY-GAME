@@ -52,7 +52,7 @@ class Plane {
 
     shoot() {
         console.log("shooting?")
-        const fireball = new Bullet(this.ctx);
+        const fireball = new Bullet(this.ctx, this.x + this.w, this.y + this.h);
         if (this.movements.isShooting) {
             this.fireballs.push(fireball);
         }
@@ -112,6 +112,7 @@ class Plane {
         if (this.img.horizontalFrameIndex >= 4) {
             this.img.horizontalFrameIndex = 0;
         }
+
     }
 
 
