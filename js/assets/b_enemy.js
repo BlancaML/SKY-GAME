@@ -4,7 +4,7 @@ class Black {
      
 
       this.ctx = ctx;
-      
+      this.isVisible = true;
       this.x = this.ctx.canvas.width - 10;
 
       this.dist = Math.random() * this.ctx.canvas.height + 20;
@@ -22,6 +22,22 @@ class Black {
 
       
     }
+
+    collideWith(bullet) {
+      const colX = (
+        this.x + this.w >= bullet.x &&
+        this.x <= bullet.x + bullet.w
+      )
+
+      const colY = (
+        this.y + this.h >= bullet.y &&
+        this.y <= bullet.y + bullet.h
+
+      )
+
+      return colY && colX
+
+    }
   
     draw() {
       this.img.tick++;
@@ -30,12 +46,7 @@ class Black {
         this.img.tick = 0;
         this.animate();
       } 
-      /*this.ctx.fillRect(
-        this.x,
-        this.y,
-        this.w,
-        this.h
-      )*/
+
 
       this.ctx.drawImage(
         //this.ctx.drawImage( img, sx, sy, sw, sh, dx, dy, dw, dh); //

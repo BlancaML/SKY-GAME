@@ -45,13 +45,13 @@ class Plane {
             isShooting: false,
         }
 
-        ///this.weapon = new Weapon(this) //
+    
         this.fireballs = [];
 
     }
 
     shoot() {
-        console.log("shooting?")
+        
         const fireball = new Bullet(this.ctx, this.x + this.w, this.y + this.h);
         if (this.movements.isShooting) {
             this.fireballs.push(fireball);
@@ -87,13 +87,13 @@ class Plane {
     }
 
     animate() {
-        if (!this.movements.isShooting) {
+        if (this.isDead) {
+            this.animateDead()
+        } else if (!this.movements.isShooting) {
             this.animateFlying();
         } else if (this.movements.isShooting) {
             this.animateShooting();
-        } else {
-            this.animateDead();
-        }
+        } 
       
     }
                
@@ -134,6 +134,12 @@ class Plane {
     }
 
     move() {
+
+        if (this.isFloor()) {
+            this.ay = 0;
+            this.vy = 0;
+            this.y = this.ctx.canvas.height - this.h;
+        }
         if (this.movements.up) {
             this.ay = -0.2;
         } else {
@@ -155,6 +161,7 @@ class Plane {
         this.y += this.vy;
         this.x += this.vx;
 
+        this.fireballs.forEach(f => f.move());
        
     }
 

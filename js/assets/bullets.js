@@ -9,7 +9,7 @@ class Bullet {
         this.g = 0.05;
         this.gv = 0;
 
-        this.vx = 80;
+        this.vx = 10;
         this.vy = 0;
        
     
@@ -42,20 +42,15 @@ class Bullet {
             this.w,
             this.h
           );
-          console.log(this.ctx.drawImage)
+        
     }
     
     move() {
         this.x += this.vx;
-        this.g += this.gv;
-        this.vy += this.g
-        this.x += this.vx
-        this.y += this.vy
+        
+       
 
-        if (this.y >= 420) {
-        this.y = 420
-        this.vy *= -1
-    }
+        
     }
 
     animate() {

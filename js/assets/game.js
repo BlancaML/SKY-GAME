@@ -30,7 +30,8 @@ class Game {
             this.move();
             this.draw();
             this.checkCollisions();
-            this.updateScore();
+            this.killEnemies();
+            this.clearEnemies();
 
             if (this.tick === 300) {
                 this.tick = 0;
@@ -41,7 +42,7 @@ class Game {
     }
 
     updateScore() {
-        this.score.value+= 1
+        this.score.value+= 100;
     }
 
     onKeyEvent(event) {
@@ -63,20 +64,14 @@ class Game {
 
     clearEnemies() {
         this.blacks = this.blacks.filter((enem) => {
-            if (enem.isVisible()) {
-                return true;
-            } else {
-                this.updateScore();
-            }
+         return enem.isVisible  
         })
 
         this.reds = this.reds.filter((enem) => {
-            if (enem.isVisible()) {
-                return true;
-            } else {
-                this.updateScore();
-            }
-        })
+            return enem.isVisible  
+           })
+
+
     }
 
     move() {
@@ -142,14 +137,43 @@ class Game {
         if (collisionBlacks || collisionReds || crashFloor || crashTop) {
             this.gameOver();
         }
+        
+        
     }
 
+
+    killEnemies() {
+        const allEnemies = [...this.reds, ...this.blacks];
+    
+        const killedEnemy = allEnemies.find(enemy => {
+            return this.plane.fireballs.some(bullet => {
+                if (enemy.collideWith(bullet)) {
+                    enemy.isVisible = false;
+                    return true
+                } else {
+                    return false
+                }
+
+            })
+        })
+
+        if (killedEnemy) {
+            console.log('muerto', killedEnemy)
+            this.updateScore();
+            
+        }
+    }
+    
+
     gameOver() {
-        this.finish.draw();
+        
         // this.finish.animate(); //
 
-        this.plane.animateDead();
-        clearInterval(this.intervalId); 
+        this.plane.isDead = true;
+        setTimeout(() => {
+            clearInterval(this.intervalId); 
+        }, 50)
+        this.finish.draw();
         
         this.audio.play()
         

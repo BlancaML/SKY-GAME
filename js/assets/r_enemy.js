@@ -4,7 +4,7 @@ class Red {
      
 
       this.ctx = ctx;
-      
+      this.isVisible = true;
       this.x = this.ctx.canvas.width - 10;
 
       this.dist = Math.random() * this.ctx.canvas.height + 50;
@@ -21,6 +21,21 @@ class Red {
       this.img.src = './images/Enemies/reds.png';
 
       
+    }
+
+    collideWith(bullet) {
+      const colX = (
+        this.x + this.w >= bullet.x &&
+        this.x <= bullet.x + bullet.w
+      )
+
+      const colY = (
+        this.y + this.h >= bullet.y &&
+        this.y <= bullet.y + bullet.h
+
+      )
+
+      return colY && colX
     }
   
     draw() {
