@@ -19,6 +19,10 @@ class Game {
         this.reds = [
             new Red (this.ctx)
         ]; 
+
+        this.flames = [
+            new Flame (this.ctx)
+        ]; 
         this.audio = new Audio ('./audios/gameover.wav');
         this.finish = new Finish(this.ctx);
     }
@@ -50,11 +54,15 @@ class Game {
     }
 
     addEnemy() {
-        const newBlack = new Black (this.ctx)
-        this.blacks.push(newBlack)
+        const newBlack = new Black (this.ctx);
+        this.blacks.push(newBlack);
 
-        const newRed = new Red (this.ctx)
-        this.reds.push(newRed)
+        const newRed = new Red (this.ctx);
+        this.reds.push(newRed);
+
+        const newFlame = new Flame (this.ctx);
+        this.flames.push(newFlame);
+
     }
 
 
@@ -71,6 +79,10 @@ class Game {
             return enem.isVisible  
            })
 
+        this.flames = this.flames.filter((enem) => {
+            return enem.isVisible  
+           });
+
 
     }
 
@@ -81,6 +93,7 @@ class Game {
 
         this.blacks.forEach(enem => enem.move());
         this.reds.forEach(enem => enem.move());
+        this.flames.forEach(enem => enem.move());
         
 
        
@@ -96,6 +109,7 @@ class Game {
 
         this.blacks.forEach(enem => enem.draw());
         this.reds.forEach(enem => enem.draw());
+        this.flames.forEach(enem => enem.draw());
 
     }
 
@@ -115,7 +129,7 @@ class Game {
             )
 
             return colX && colY;
-        })
+        });
 
         const collisionReds = this.reds.some( enem => {
             const colX = (
@@ -129,12 +143,28 @@ class Game {
             )
 
             return colX && colY;
-        })
+        });
+
+        const collisionFlames = this.flames.some( enem => {
+            const colX = (
+                this.plane.x + this.plane.w >= enem.x &&
+                this.plane.x <= enem.x + enem.w
+            )
+
+            const colY = (
+                this.plane.y + this.plane.h >= enem.y &&
+                this.plane.y <= enem.y + enem.h
+            )
+
+            return colX && colY;
+        });
+
+        
 
         const crashFloor = this.plane.isFloor();
         const crashTop = this.plane.isTop();
 
-        if (collisionBlacks || collisionReds || crashFloor || crashTop) {
+        if (collisionBlacks || collisionReds || collisionFlames || crashFloor || crashTop) {
             this.gameOver();
         }
         
@@ -143,7 +173,7 @@ class Game {
 
 
     killEnemies() {
-        const allEnemies = [...this.reds, ...this.blacks];
+        const allEnemies = [...this.reds, ...this.blacks, ...this.flames];
     
         const killedEnemy = allEnemies.find(enemy => {
             return this.plane.fireballs.some(bullet => {
@@ -154,11 +184,10 @@ class Game {
                     return false
                 }
 
-            })
-        })
+            });
+        });
 
         if (killedEnemy) {
-            console.log('muerto', killedEnemy)
             this.updateScore();
             
         }
@@ -167,7 +196,6 @@ class Game {
 
     gameOver() {
         
-        // this.finish.animate(); //
 
         this.plane.isDead = true;
         setTimeout(() => {
@@ -175,10 +203,10 @@ class Game {
         }, 50)
         this.finish.draw();
         
-        this.audio.play()
+        this.audio.play();
         
         
         
     }
 
-}
+};

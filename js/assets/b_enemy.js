@@ -7,7 +7,7 @@ class Black {
       this.isVisible = true;
       this.x = this.ctx.canvas.width - 10;
 
-      this.dist = Math.random() * this.ctx.canvas.height + 20;
+      this.dist = Math.random() * this.ctx.canvas.height + 70;
       this.y = Math.random() > 1 ? 0.2 - this.dist : this.dist;
 
       this.w = 50;
