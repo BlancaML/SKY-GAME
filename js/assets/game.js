@@ -28,6 +28,8 @@ class Game {
     }
 
     start() {
+        this.ctx.canvas.style.display = "block";
+        this.ctx.canvas.focus();
         this.intervalId = setInterval(() => {
             this.tick++;
             this.clear();

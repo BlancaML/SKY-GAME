@@ -1,39 +1,135 @@
 
+@font-face {
+  font-family: myFirstFont;
+  src: url('/Users/blancamorenodeluna/Documents/Ironhack/Projects/1module/SKY-GAME/resources/ARCADECLASSIC.TTF')
+}
 
 * {
   box-sizing: border-box;
-  font-family: 'arcadeclassicregular';
+  font-family: 'myFirstFont';
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 0;
     text-align: center;
     background-color:rgb(9, 215, 230);
     
+  }
 
+  .board {
+    width: 700px;
+    height: 500px; 
+    text-align: center;
+    border: solid 1px;
+    position: relative;
+  }
+
+  #canvas-intro {
+    background: url("../images/intro/cover.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  #logo-sky-game {
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 25px;
+
+  }
+
+  .slides {
+    width: 700px;
+    height: 500px;
+    position: absolute;
+    flex: display;
+    flex-direction: column;
+    justify-content: center;
+    
     
   }
-  #canvas {
-    border: 1px;
-    border-style: solid;
-    border-color: rgb(41, 93, 109);
+
+  #instructions {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
+  #img-instructions {
+    position: relative;
+    width: 703px;
+    height: 503px;
+   
+    
+  }
+
+  #close-instructions {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 999;
+    cursor: pointer;
+  }
+
+
   button {
-    font-size: 20px;
-    background: linear-gradient(#6F92B0, #457298);
+    font-size: 30px;
+    background: linear-gradient(#30383f, #83a4c7);
     color: #fff;
     padding: 20px 40px;
-    margin-top: 20px;
     border: 0;
     box-shadow: 0;
     border-radius: 5px;
     margin-bottom: 20px;
-
+    cursor: pointer;
+   
   }
 
   
+
+  #canvas {
+    display: none;
+    position: relative;
+    
+  }
+
+  #game-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    background-color:crimson;
+    border-radius: 25px;
+    width: 240px;
+    margin:0 auto;
+    padding: 7px;
+    margin-top: 12px;
+  }
+
+
+  #game-instructions,
+  #start-button {
+    
+    position: relative;
+    cursor: pointer;
+    font-size: 28px;
+    
+  }
+
+
+  #game-instructions {
+
+    position: relative;
+    cursor: pointer;
+    font-size: 28px;
+   
+    
+  }
+
+  h2 {
+    color: white;
+  }
+
+  h2:hover {
+    color: black;
+  }

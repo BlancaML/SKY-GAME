@@ -6,10 +6,18 @@ window.addEventListener('load', () => {
     document.getElementById("start-button").onclick = () => {
         game.start();
         
-        document.getElementById("start-button").remove();
+        document.getElementById("canvas-intro").remove();
         
 
     };
+
+    document.getElementById("instructions-div").onclick = () => {
+        document.getElementById("instructions").style.display = "block";
+    }
+
+    document.getElementById("close-instructions").onclick = () => {
+        document.getElementById("instructions").style.display = "none";
+    }
 
     document.addEventListener('keydown', e => {
         game.onKeyEvent(e)

@@ -5,12 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <title>Sky Game</title>
 </head>
 <body>
     
-    <canvas id="canvas" width="700" height="500"></canvas>
-    <button id="start-button">START FLYING</button>
+    <div class="board">
+        <div><canvas id="canvas" width="700" height="500"></canvas></div>
+
+        <div class= "slides" id="canvas-intro">
+            <img src="./images/intro/logo.png" id="logo-sky-game">
+
+            <div id="game-options">
+                <div id="start-game-div">
+                    <h2 class="options" id="start-button">START GAME</h2>
+                </div>
+                <div id="instructions-div">
+                    <h2 class="options" id="game-instructions">HOW TO PLAY</h2>
+                </div>
+            </div>
+            <div class="slides" id="instructions" style="display: none;">
+            <button id="close-instructions">close</button>
+            <img id="img-instructions" src="./images/intro/howtoplay.png">
+        </div>
+    </div>
+</div>
+
+
+
 
     <script type="text/javascript" src="./js/assets/background.js"></script>
     <script type="text/javascript" src="./js/assets/flames.js"></script>
