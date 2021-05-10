@@ -198,12 +198,12 @@ class Game {
 
     gameOver() {
         
-
         this.plane.isDead = true;
         setTimeout(() => {
             clearInterval(this.intervalId); 
         }, 50)
         this.finish.draw();
+        
         
         this.audio.play();
         

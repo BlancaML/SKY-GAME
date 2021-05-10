@@ -19,6 +19,15 @@ window.addEventListener('load', () => {
         document.getElementById("instructions").style.display = "none";
     }
 
+    document.getElementById("scores-div").onclick = () => {
+        document.getElementById("ranking-div").style.display = "block";
+    }
+
+    document.getElementById("close-ranking").onclick = () => {
+        document.getElementById("ranking-div").style.display = "none";
+    }
+
+
     document.addEventListener('keydown', e => {
         game.onKeyEvent(e)
     });
