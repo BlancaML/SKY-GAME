@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: myFirstFont;
-  src: url('/Users/blancamorenodeluna/Documents/Ironhack/Projects/1module/SKY-GAME/resources/ARCADECLASSIC.TTF')
+  src: url('../resources/ARCADECLASSIC.TTF')
 }
 
 * {
@@ -12,8 +12,8 @@
 body {
     padding: 0;
     text-align: center;
-    background-color:rgb(9, 215, 230);
-    
+    background-color:rgb(16, 151, 230);
+    margin: 80px;
   }
 
   .board {
@@ -21,6 +21,8 @@ body {
     height: 500px; 
     text-align: center;
     position: relative;
+    margin: auto;
+    
   }
 
   #canvas-intro {
@@ -63,7 +65,7 @@ body {
   #ranking {
     position: relative;
     width: 500px;
-    background:linear-gradient(#f30808, #e3f308);
+    background:linear-gradient(#f50202, #f3a108);
     background-position: center;
     height: 300px;
     color: white;
@@ -104,10 +106,10 @@ body {
     font-size: 20px;
     background: linear-gradient(#02090f, #3e5770);
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 30px;
     border: 0;
     box-shadow: 5;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 20px;
     cursor: pointer;
    
@@ -155,7 +157,7 @@ body {
     
   }
 
-  h2 {
+  h1,h2,h3 {
     color: white;
   }
 
@@ -163,4 +165,50 @@ body {
     color: black;
   }
 
+ #div-game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  
+ }
+
+ #div-game-over h1{
+  font-size: 80px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  color:gray;
+ }
+
+.try-again{
+   font-size: 28px;
+   color:rgb(233, 200, 13);
+   cursor: pointer;
+   margin: 0 auto;
+ }
  
+
+ #you-win {
+   background-color: black;
+ }
+
+ #you-win h1{
+  color: white;
+  font-size: 80px;
+  margin-top: -50px;
+
+}
+
+#name-input {
+  width: 190px;
+  margin: 0 auto;
+  margin-top: 0px;
+  border-radius: 10px;
+  border: navajowhite;
+  padding: 2px 10px;
+  font-size: 20px;
+  color: darkgray;
+  height: 40px;
+  margin-top: 10px;
+  text-align: center;
+}

@@ -1,14 +1,13 @@
 window.addEventListener('load', () => {
-    const game = new Game('canvas');
+    let game = new Game('canvas', onGameOver);
     console.log('hello');
 
 
     document.getElementById("start-button").onclick = () => {
         game.start();
         
-        document.getElementById("canvas-intro").remove();
+        document.getElementById("canvas-intro").style.display = 'none';
         
-
     };
 
     document.getElementById("instructions-div").onclick = () => {
@@ -27,6 +26,10 @@ window.addEventListener('load', () => {
         document.getElementById("ranking-div").style.display = "none";
     }
 
+    document.querySelector(".max-score").innerText =
+    `TOP SCORE: ${localStorage.maxScore}`;
+
+
 
     document.addEventListener('keydown', e => {
         game.onKeyEvent(e)
@@ -35,6 +38,22 @@ window.addEventListener('load', () => {
     document.addEventListener('keyup', e => {
         game.onKeyEvent(e)
     });
+
+    function onGameOver() {
+        document.getElementById("div-game-over").style.display = "block";
+        document.getElementById("box-you-win").style.display = "block"; 
+        document.querySelector(".try-again").style.display = "block";
+    }
+
+    const tryAgain = document.querySelector(".try-again");
+
+    tryAgain.addEventListener('click', () => {
+        game = new Game('canvas', onGameOver);
+        game.start();
+        tryAgain.style.display = "none";
+        document.getElementById("box-you-win").style.display = "none";
+
+    })
 
 });
    

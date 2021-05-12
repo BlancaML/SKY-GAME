@@ -43,26 +43,12 @@ class Score {
       );
 
         this.ctx.font = "bold 30px Verdana";
-        /*var gradient = this.ctx.createLinearGradient(this.x, this.y, this.w, this.h);
-        gradient.addColorStop("0.8"," magenta");
-        gradient.addColorStop("0.5", "black");
-        gradient.addColorStop("1.0", "red");*/
         
         this.ctx.fillStyle = "#900c3f";
         this.ctx.fillText(` ${this.value}`, this.x + 45 , this.y + 30);
     }
   
-    /*move() {
-      this.x += this.vx;
-      
-    }*/
-  
-    /*isVisible() {
-      return (
-        this.y < this.ctx.canvas.height &&
-        this.y > 0 - this.h
-      );
-    }*/
+    
 
     animate() {
         this.img.frameIndex++;

@@ -11,9 +11,6 @@ class Finish {
          this.h = 190,
 
 
-
-         // this.vy = ; //
-
          this.img = new Image();
          this.tick = 0;
          this.img.frames = 1;
