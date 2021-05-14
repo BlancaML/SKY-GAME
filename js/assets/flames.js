@@ -8,8 +8,8 @@ class Flame {
       this.x = 0;
 
       // this.dist = this.ctx.canvas.height - 500; //
-      this.y = 500;
-
+      this.y = 600;
+      
       this.w = this.ctx.canvas.width;
       this.h = 200;
       this.vy = -1;
